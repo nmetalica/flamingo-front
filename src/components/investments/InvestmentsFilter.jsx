@@ -6,6 +6,16 @@ import Button from '../app/Button';
 import DropdownFilter from '../filters/DropdownFilter';
 import Searchbar from '../filters/Searchbar';
 
+const FiltersContainer = styled.div`
+  transform: translate(-25%);
+  left: 25%;
+
+  @media (min-width: 1024px) {
+    transform: translate(0%);
+    left: 0%;
+  }
+`;
+
 const InvestmentsFilter = ({
   onChange,
 }) => {
@@ -98,16 +108,6 @@ const InvestmentsFilter = ({
       ],
     },
   ];
-
-  const FiltersContainer = styled.div`
-    transform: translate(-25%);
-    left: 25%;
-
-    @media (min-width: 1024px) {
-      transform: translate(0%);
-      left: 0%;
-    }
-  `;
 
   return (
     <>

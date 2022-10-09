@@ -33,8 +33,14 @@
 }
 
 .investments-container {
-  height: calc(100% - 10rem);
+  height: calc(100% - 14rem);
 }
+
+@media (min-width: 1024px) {
+  .investments-container {
+    height: calc(100% - 10rem);
+  }
+};
 
 .spinner {
   animation: rotate 2s linear infinite;
@@ -63,6 +69,10 @@
   transition: opacity 150ms linear;
 }
 
+.hide-password {
+  color: transparent;
+  text-shadow: 0 0 8px rgba(0,0,0,0.5);
+}
 
 @keyframes rotate {
   100% {

@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import TabItem from '../app/TabItem';
 import noPreview from '../../assets/no-preview.png';
 
+const StyledContainer = styled.div`
+  height: calc(100% - 7rem);
+`;
+
 const InvestmentDetail = ({ oportunity, pitches = [] }) => {
   const [activeTab, updateActiveTab] = useState('pitch');
 
@@ -17,10 +21,6 @@ const InvestmentDetail = ({ oportunity, pitches = [] }) => {
       disabled: true,
     },
   ];
-
-  const StyledContainer = styled.div`
-    height: calc(100% - 7rem);
-  `;
 
   return (
     <StyledContainer className="w-full mt-4">

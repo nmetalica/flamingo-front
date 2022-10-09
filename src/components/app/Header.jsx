@@ -5,12 +5,12 @@ import UserComponent from '../header/UserComponent';
 
 const logo = require('../../assets/Flamingo_LogoText.png');
 
+const HeaderDiv = styled.div`
+  height: 4rem;
+`;
+
 const Header = () => {
   const navigate = useNavigate();
-
-  const HeaderDiv = styled.div`
-    height: 4rem;
-  `;
 
   const goHome = () => {
     navigate('/investments');

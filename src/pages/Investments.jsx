@@ -7,7 +7,7 @@ import { Heading, Subheading } from '../components/typography/Index';
 import InvestmentsFilter from '../components/investments/InvestmentsFilter';
 import Card from '../components/app/Card';
 import { QueryContext } from '../contexts/QueryProvider';
-import noPreview from '../assets/no-preview.png';
+import InvestmentCard from '../components/investments/InvestmentCard';
 
 const Investments = () => {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const Investments = () => {
   const handleClick = (id) => navigate(`/show-interest?id=${id}`);
 
   return (
-    <div className="h-full w-full overflow-hidden px-8 pt-8">
+    <div className="h-full w-full overflow-hidden xl:px-8 xl:pt-8">
       <Heading className="mb-2">
         Invierte ahora
       </Heading>
@@ -65,54 +65,11 @@ const Investments = () => {
             </Heading>
             <div className="flex space-x-6 overflow-x-auto">
               {!oportunities.length && <Subheading className="text-black-400">No hay resultados disponibles</Subheading>}
-              {oportunities.map(({
-                id,
-                image,
-                imageType,
-                logo,
-                logoType,
-                title,
-                slogan,
-                location,
-                tags,
-                disabled,
-              }) => (
-                <Card
-                  onClick={() => handleClick(id)}
-                  key={id}
-                  disabled={disabled}
-                  logo={(
-                    <div className="w-full h-full text-primary rounded-lg">
-                      <img alt="" src={logo ? `${logoType},${logo}` : noPreview} className="w-full h-full" />
-                    </div>
-                  )}
-                  preview={(
-                    <div className="w-full h-full text-white rounded-t-lg">
-                      <img alt="" src={image ? `${imageType},${image}` : noPreview} className="w-full h-full" />
-                    </div>
-                  )}
-                  content={
-                    (
-                      <span className="multiline-ellipsis text-sm text-justify leading-4 text-black-400">
-                        {slogan}
-                      </span>
-                    )
-                  }
-                  title={title}
-                  footer={
-                    (
-                      <div className="leading-4">
-                        <p className="text-black-400">
-                          {location}
-                        </p>
-                        {tags && tags.map((tag) => (
-                          <span key={tag} className="text-white bg-black-400 rounded-sm px-2 text-xs">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )
-                  }
+              {oportunities.map((oportunity) => (
+                <InvestmentCard
+                  key={oportunity.id}
+                  {...oportunity}
+                  onClick={(id) => handleClick(id)}
                 />
               ))}
             </div>

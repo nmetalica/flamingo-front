@@ -3,6 +3,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { Subheading } from '../typography/Index';
 
+const Container = styled.div`
+  height: 28rem;
+  min-width: 18rem;
+  width: 20rem;
+`;
+
 const Card = ({
   logo,
   content,
@@ -13,12 +19,6 @@ const Card = ({
   disabled,
   className = '',
 }) => {
-  const Container = styled.div`
-    height: 28rem;
-    min-width: 18rem;
-    width: 20rem;
-  `;
-
   const dynamicClass = () => {
     if (disabled) {
       return 'cursor-default opacity-50';

@@ -14,6 +14,10 @@ import Header from '../components/app/Header';
 import Footer from '../components/app/Footer';
 import ShowInterest from '../pages/ShowInterest';
 
+const AppContainer = styled.div`
+  height: calc(100% - 7.5rem);
+`;
+
 const Router = () => {
   const { user } = useContext(AppContext);
 
@@ -24,10 +28,6 @@ const Router = () => {
 
     return component;
   };
-
-  const AppContainer = styled.div`
-    height: calc(100% - 7.5rem);
-  `;
 
   return (
     <HashRouter>

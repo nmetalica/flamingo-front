@@ -1,12 +1,12 @@
-import { faHourglassHalf } from '@fortawesome/free-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/app/Button';
-import Card from '../components/app/Card';
+import Loader from '../components/app/Loader';
 import ProfileImg from '../components/app/ProfileImg';
+import InvestmentCard from '../components/investments/InvestmentCard';
 import { Heading, Subheading } from '../components/typography/Index';
 import { AppContext } from '../contexts/AppProvider';
+import { QueryContext } from '../contexts/QueryProvider';
 
 const Profile = () => {
   const { user, logout } = useContext(AppContext);
@@ -17,14 +17,30 @@ const Profile = () => {
     username,
     email,
     phone,
-    interests = [],
   } = user;
   const navigate = useNavigate();
+  const [loading, updateLoading] = useState(false);
+  const [investments, updateInvestments] = useState([]);
+  const { getInvestmentByUser } = useContext(QueryContext);
 
   const handleLogout = () => {
     logout();
     navigate('/login');
   };
+
+  const fetchInvestments = async () => {
+    const userInvestments = await getInvestmentByUser();
+    updateInvestments(userInvestments);
+    updateLoading(false);
+  };
+
+  useEffect(
+    () => {
+      updateLoading(true);
+      fetchInvestments();
+    },
+    [],
+  );
 
   return (
     <div className="h-full w-full">
@@ -69,52 +85,16 @@ const Profile = () => {
       <Heading className="mb-4">
         Muestras de interés
       </Heading>
-      <div className="flex space-x-6">
-        { interests.map(({
-          title,
-          description,
-          location,
-          tags,
-          disabled,
-        }) => (
-          <Card
-            key={title}
-            disabled={disabled}
-            logo={(
-              <div className="w-full h-full text-primary bg-white rounded-lg p-4 border">
-                <FontAwesomeIcon icon={faHourglassHalf} className="h-full w-full"/>
-              </div>
-            )}
-            preview={(
-              <div className="w-full h-full text-white bg-primary p-4 rounded-t-lg">
-                <FontAwesomeIcon icon={faHourglassHalf} className="w-full h-full"/>
-              </div>
-            )}
-            content={
-              (
-                <span className="multiline-ellipsis text-sm text-justify leading-4 text-black-400">
-                  {description}
-                </span>
-              )
-            }
-            title={title}
-            footer={
-              (
-                <div className="leading-4">
-                  <p className="text-black-400">
-                    {location}
-                  </p>
-                  {tags && tags.map((tag) => (
-                    <span key={tag} className="text-white bg-black-400 rounded-sm px-2 text-xs">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              )
-            }
+      <div className={`flex space-x-6 overflow-x-auto ${loading && 'justify-center'}`}>
+        {loading && <Loader className="stroke-primary" size="14" />}
+        { !loading && investments.map((investment) => (
+          <InvestmentCard
+            {...investment.oportunity}
+            key={investment.id}
+            investment={investment.amount}
           />
         ))}
-        { !interests.length && (
+        { !loading && !investments.length && (
           <Subheading className="w-full flex justify-center text-black-400 mt-5">
             Aún no se han registrado muestras de interés.
           </Subheading>

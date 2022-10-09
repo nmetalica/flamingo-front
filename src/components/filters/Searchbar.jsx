@@ -8,9 +8,9 @@ const Searchbar = ({
   onSearch = () => {},
 }) => (
   <div className="flex text-black-400 items-center relative">
-    <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" className="absolute" />
     <Input
-      className="w-72 pl-4"
+      preIcon={faMagnifyingGlass}
+      className="w-72"
       value={value}
       onChange={onSearch}
       placeholder="Escribe lo que quieres buscar"
